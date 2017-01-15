@@ -11,6 +11,16 @@ Step2: after you confirm your final cut in final plots, use these cuts for both 
 
 Step3: use fakerate, data bincontent and p-l-j bincontent to calculate a scale-factor for each photon-pt bin, therefore every event in p-l-j sample will get a weight according to this scale-factor
 
-(Step2 and Step3 using code in for_scale)
+//////////////////////////////////////////
+/// (Step2 and Step3 using code in for_scale)
+//////////////////////////////////////////
 
 Step4: declare the scale-factor of p-l-j events in the EDBRHistoMaker.h, and finally Fill histograms with the scale-factor according to the event's photon-pt
+
+Step5: do QCD-ZAjj rescale. after previous steps, the mc is still not consistent with data. As Mjj is a powerful discriminator, and signal nearly have no contribution at the small Mjj control region(150~400 GeV), rescale QCD-ZAjj to let mc equal to data in control region.
+
+Step6: calculate significance. choose a signal region Mjj>1 TeV(could be higher), and calculate significance, could simplely use cut count S/sqrt(B) or Higgs conbination tool.
+
+/////////////////////////////////////////////////
+///Step5 and Step6 are using ZA-scale.C
+/////////////////////////////////////////////////
