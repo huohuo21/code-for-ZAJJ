@@ -1,0 +1,32 @@
+######gmp 6.1.1
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp --enable-cxx
+make && make install
+
+######mpfr 3.1.5
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/mpfr --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp
+make && make install
+
+######mpc 1.0.1
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/mpc --with-mpfr=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/mpfr --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp
+make && make install
+
+######ppl 1.2
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/ppl --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gpm
+make && make install
+
+<opt>######isl 0.17.1 (0.17 cause conflict)
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/isl --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp
+
+######cloog 0.18.1
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/cloog --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp --enable-cloog-backend=isl --with-ppl=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/ppl
+
+######gcc 6.2.0(should fisrtly export gmp mpfr and mpc lib path to the LD_LIBRARY_PATH, youcan export manually or add them to .bashrc)
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gcc --with-gmp=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gmp --with-mpfr=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/mpfr --with-mpc=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/mpc --with-ppl=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/ppl --with-CLooG=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/cloog --with-llvm --disable-multilib --enable-threads=posix --enable-__cxa_atexit
+
+#>>>>>>>>>>>>>>>aMC@NLO<<<<<<<<<<<<<<<<
+Pre: newenv
+export PATH=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gcc/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/ClusterDisks/HDN14/WorkSpace/lum/rely-on/gcc/lib64
+
+######fastjet 3.2.1
+./configure --prefix=/ClusterDisks/HDN14/WorkSpace/lum/rely-on/fastjet --enable-allplugins
