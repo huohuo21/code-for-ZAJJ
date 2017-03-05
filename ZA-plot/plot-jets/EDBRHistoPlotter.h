@@ -339,7 +339,7 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
 				TFile::Open((nameInDir_ + fileNamesMC.at(i)).c_str()));
 	}
 
-	double sumBkgOther = 0.;
+/*	double sumBkgOther = 0.;
 	double sumWJets = 0.;
 	for (size_t i = 0; i != filesMC.size(); ++i) {
 		TH1D* histo = (TH1D*) (filesMC.at(i)->Get(histoName.c_str())->Clone(
@@ -360,6 +360,7 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
 		cout << "WJetsScaleFactor " << WJetsScaleFactor << endl;
 	}
 
+*/
 	for (size_t i = 0; i != filesMC.size(); ++i) {
 		TH1D* histo = (TH1D*) (filesMC.at(i)->Get(histoName.c_str())->Clone(
 				labels.at(i).c_str()));
@@ -369,8 +370,8 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
 
 		TString filename = filesMC.at(i)->GetName();
 		histo->Scale(kFactorsMC_.at(i));
-		if (filename.Contains("WJets"))
-			histo->Scale(WJetsScaleFactor);
+//		if (filename.Contains("WJets"))
+//			histo->Scale(WJetsScaleFactor);
 		histosMC.push_back(histo);
 	}
 
