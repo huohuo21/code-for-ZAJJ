@@ -10,7 +10,7 @@
 #include "EDBRHistoPlotter.h"
 #include "test.C"
 #include "CMSTDRStyle.h"
-
+#include "TGraphAsymmErrors.h"
 void loopPlot() {
 	gErrorIgnoreLevel = kFatal; //suppresses all info messages
 
@@ -18,7 +18,7 @@ void loopPlot() {
 
 	//#####################EDIT THE OPTIONS##############################
 
-	double lumiValue = 36.749;
+	double lumiValue = 35.862;
 	/// Should we scale the histograms to data?
 	bool scaleToData = false;
 	// Should we scale only wjets to make total MC = DATA?
@@ -36,10 +36,36 @@ void loopPlot() {
 	use_plj = true;
 
 	/// Path to wherever the files with the trees are. 
-	std::string pathToTrees = "../../AllTree/newoutTree/";
+	std::string pathToTrees = "../../small-ntuple-maker/outTree-new-pu/";
 	//  std::string pathToTrees="./";
 	std::string outputDir = "./";
 
+
+	/// file for scale factors
+	TH2F* ID_BF=0;TH2F* ID_GH=0;TH2F* ISO_BF=0;TH2F* ISO_GH=0;TGraphAsymmErrors* track_SF=0;TH2D* di_lep_trigger=0;
+
+	TFile* ID_eff_BF = TFile::Open("./SFs/ID_eff_BCDEF.root");
+	TDirectoryFile* d_ID_BF=(TDirectoryFile*)ID_eff_BF->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta");
+	d_ID_BF->GetObject("abseta_pt_ratio", ID_BF);
+
+        TFile* ID_eff_GH = TFile::Open("./SFs/ID_eff_GH.root");
+        TDirectoryFile* d_ID_GH=(TDirectoryFile*)ID_eff_GH->Get("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta");
+        d_ID_GH->GetObject("abseta_pt_ratio", ID_GH);
+
+	TFile* ISO_eff_BF = TFile::Open("./SFs/ISO_eff_BCDEF.root");
+        TDirectoryFile* d_ISO_BF=(TDirectoryFile*)ISO_eff_BF->Get("TightISO_TightID_pt_eta");
+        d_ISO_BF->GetObject("abseta_pt_ratio", ISO_BF);	
+
+	TFile* ISO_eff_GH = TFile::Open("./SFs/ISO_eff_GH.root");
+        TDirectoryFile* d_ISO_GH=(TDirectoryFile*)ISO_eff_GH->Get("TightISO_TightID_pt_eta");
+        d_ISO_GH->GetObject("abseta_pt_ratio", ISO_GH);
+
+	TFile* Track_eff = TFile::Open("./SFs/Tracking_EfficienciesAndSF_BCDEFGH.root");
+	Track_eff->GetObject("ratio_eff_aeta_dr030e030_corr",track_SF);
+
+	TFile* trigger_eff = TFile::Open("./SFs/di_lep_trigger.root");
+	trigger_eff->GetObject("2Dh2",di_lep_trigger);
+	
 // Setup names of data files for trees.
 	const int nDATA = 1;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
@@ -86,7 +112,7 @@ void loopPlot() {
 	std::vector < std::string > fHistosMC;
 	std::vector < std::string > fHistosMCSig;
 
-	char buffer[256];
+	char buffer[256], optimal_buffer[256];
 	printf("All strings set\n");
 
 	/// ----------------------------------------------------------------
@@ -103,6 +129,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fData.at(i) << std::endl; //fData.push_back(pathToTrees + dataLabels[ii] + ".root");
 		sprintf(buffer, "histos_%s.root", dataLabels[i].c_str());
+		sprintf(optimal_buffer, "optimal_%s.root", dataLabels[i].c_str());
 		fHistosData.push_back(buffer);
 
 		std::cout << "retrieve ith data file" << std::endl;
@@ -149,7 +176,8 @@ void loopPlot() {
 				maker->Loop_for_plj(buffer);
 			} else {
 				maker->setUnitaryWeights(false);
-				maker->Loop(buffer);
+				maker->Loop_SFs_mc(buffer, ID_BF, ID_GH, ISO_BF, ISO_GH, track_SF, di_lep_trigger);
+				//maker->Loop(buffer);
 			}
 			fileMC->Close();
 		}
@@ -174,7 +202,8 @@ void loopPlot() {
 			EDBRHistoMaker* maker = new EDBRHistoMaker(treeMCSig, fileMCSig,
 					hisRatio);
 			maker->setUnitaryWeights(false);
-			maker->Loop(buffer);
+			maker->Loop_SFs_mc(buffer, ID_BF, ID_GH, ISO_BF, ISO_GH, track_SF, di_lep_trigger);
+			//maker->Loop(buffer);
 			fileMCSig->Close();
 		}
 

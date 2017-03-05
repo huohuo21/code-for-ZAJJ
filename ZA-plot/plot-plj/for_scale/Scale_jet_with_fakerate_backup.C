@@ -143,18 +143,18 @@ void Scale_jet_with_fakerate() {
 	TH1D *h_data_drja04_massV50130 = new TH1D("h_data_drja04_massV50130", "h_data_drja04_massV50130", 100,25,400);
 	TH1D *h_data_drja04 = new TH1D("h_data_drja04", "h_data_drja04", 100,25,400);
 	TH1D *h_data_jetpt15_massV50130 = new TH1D("h_data_jetpt15_massV50130", "h_data_jetpt15_massV50130", 100,25,400);
-	TH1D *h_data_jetpt15 = new TH1D("h_data_jetpt15", "h_data_jetpt15", 100,25,400);
-	TH1D *h_data_massV50130 = new TH1D("h_data_massV50130", "h_data_massV50130", 100,25,400);
-	TH1D *h_data = new TH1D("h_data", "h_data", 100,25,400);
+    TH1D *h_data_jetpt15 = new TH1D("h_data_jetpt15", "h_data_jetpt15", 100,25,400);
+    TH1D *h_data_massV50130 = new TH1D("h_data_massV50130", "h_data_massV50130", 100,25,400);
+    TH1D *h_data = new TH1D("h_data", "h_data", 100,25,400);
 
 	TH1D *h_mc_drja04_jetpt15_massV50130 = new TH1D("h_mc_drja04_jetpt15_massV50130", "h_mc_drja04_jetpt15_massV50130", 100,25,400);
 	TH1D *h_mc_drja04_jetpt15 = new TH1D("h_mc_drja04_jetpt15", "h_mc_drja04_jetpt15", 100,25,400);
 	TH1D *h_mc_drja04_massV50130 = new TH1D("h_mc_drja04_massV50130", "h_mc_drja04_massV50130", 100,25,400);
 	TH1D *h_mc_drja04 = new TH1D("h_mc_drja04", "h_mc_drja04", 100,25,400);
 	TH1D *h_mc_jetpt15_massV50130 = new TH1D("h_mc_jetpt15_massV50130", "h_mc_jetpt15_massV50130", 100,25,400);
-	TH1D *h_mc_jetpt15 = new TH1D("h_mc_jetpt15", "h_mc_jetpt15", 100,25,400);
-	TH1D *h_mc_massV50130 = new TH1D("h_mc_massV50130", "h_mc_massV50130", 100,25,400);
-	TH1D *h_mc = new TH1D("h_mc", "h_mc", 100,25,400);
+    TH1D *h_mc_jetpt15 = new TH1D("h_mc_jetpt15", "h_mc_jetpt15", 100,25,400);
+    TH1D *h_mc_massV50130 = new TH1D("h_mc_massV50130", "h_mc_massV50130", 100,25,400);
+    TH1D *h_mc = new TH1D("h_mc", "h_mc", 100,25,400);
 
 	Long64_t entries_data = treeData->GetEntriesFast();
 	Long64_t entries_jets = treeMC->GetEntriesFast();

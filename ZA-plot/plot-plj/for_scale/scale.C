@@ -6,7 +6,8 @@ void scale(){
 	const Int_t nbins = 7;
         const Int_t nfakerates = 6;
         Double_t ptbin[nbins] = { 25, 35, 45, 60, 80, 120, 400 };
-        Double_t fakerate[nfakerates] = { 0.30, 0.25, 0.20, 0.13, 0.15, 0.11 };
+        //Double_t fakerate[nfakerates] = { 0.28, 0.23, 0.19, 0.14, 0.15, 0.14 };//lep-pt20-V70-110
+	Double_t fakerate[nfakerates] = { 0.18, 0.19, 0.17, 0.13, 0.14, 0.14 };//lep-pt20-V60-120
 
 	TFile* f1 = TFile::Open("fout.root");
 	TH1D* hdata_ = (TH1D*)f1->Get("h_data");
