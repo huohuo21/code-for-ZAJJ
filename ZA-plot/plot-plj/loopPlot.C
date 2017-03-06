@@ -146,9 +146,10 @@ void loopPlot() {
 		}
 		if (redoHistograms) {
 			EDBRHistoMaker* maker = new EDBRHistoMaker(treeData, fileData,
-					hisRatio);
+					hisRatio, optimal_buffer);
 			maker->setUnitaryWeights(true);
 			maker->Loop(buffer);
+			maker->endjob();
 			fileData->Close();
 		}
 
@@ -161,6 +162,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fMC.at(i) << std::endl;
 		sprintf(buffer, "histos_%s.root", mcLabels[i].c_str());
+		sprintf(optimal_buffer, "optimal_%s.root", mcLabels[i].c_str());
 		fHistosMC.push_back(buffer);
 		std::cout << "test" << std::endl;
 
@@ -170,13 +172,15 @@ void loopPlot() {
 			std::cout << "retrieve tree of mc file" << std::endl;
 			TTree *treeMC = (TTree*) fileMC->Get("demo");
 			EDBRHistoMaker* maker = new EDBRHistoMaker(treeMC, fileMC,
-					hisRatio);
+					hisRatio, optimal_buffer);
 			if ( i == 4) {
 				maker->setUnitaryWeights(true);
 				maker->Loop_for_plj(buffer);
+				maker->endjob();
 			} else {
 				maker->setUnitaryWeights(false);
 				maker->Loop_SFs_mc(buffer, ID_BF, ID_GH, ISO_BF, ISO_GH, track_SF, di_lep_trigger);
+				maker->endjob();
 				//maker->Loop(buffer);
 			}
 			fileMC->Close();
@@ -192,6 +196,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fMCSig.at(i) << std::endl;
 		sprintf(buffer, "histos_%s.root", mcLabelsSig[i].c_str());
+		sprintf(optimal_buffer, "optimal_%s.root", mcLabelsSig[i].c_str());
 		fHistosMCSig.push_back(buffer);
 
 		if (redoHistograms) {
@@ -200,10 +205,11 @@ void loopPlot() {
 			std::cout << "retrieve tree of mcsig file" << std::endl;
 			TTree *treeMCSig = (TTree*) fileMCSig->Get("demo");
 			EDBRHistoMaker* maker = new EDBRHistoMaker(treeMCSig, fileMCSig,
-					hisRatio);
+					hisRatio, optimal_buffer);
 			maker->setUnitaryWeights(false);
 			maker->Loop_SFs_mc(buffer, ID_BF, ID_GH, ISO_BF, ISO_GH, track_SF, di_lep_trigger);
 			//maker->Loop(buffer);
+			maker->endjob();
 			fileMCSig->Close();
 		}
 
