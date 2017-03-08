@@ -1,0 +1,23 @@
+step1:
+crab to get the basic root file for data、background、signal, respectively.
+then use the runxx.C to get smaller root file;
+and pileup weights are added to the tree.
+and one should note that there are several triggers that are not used in the final cut; these cuts are used to calculate the di-lep trigger efficiency, which will be mentioned later.
+
+step2:
+in code choose_photon_for_lateruse.C, there are some very basic selections to select photons or fake photons for later fake-photon studies. Ztemplate_sieie_true.C and Ztemplate_sieie_fake.C are used to apply selection to the pre-selected photon candidates, to select true, fake photon, and photon from data. use these three kinds of photon candidates to construct photon template vs sigmaietaieta. finally fit the data template with true and fake templates, and you will get a fake rate at the end of fit for different photon pt bin.
+
+step3:
+produce photon like jet samples.
+this plj sample is from data. use the branch with "_f"
+
+step4:
+firstly get photon distributions of data and plj samples use Scale_jet_with_fakerate.C. then set the fake rate in the scale.C, then use the fakerate、bincontent of data and plj, you can get the scale-factor for each event in the plj sample wrt photon pt. these scale-factors will be used in the plot code and for significance calculation.
+
+step5:
+calculate trigger efficiency. reference method are used. firstly get the single muon path effciency(the code is 80X). then get the behavior of di-muon path soup on the events triggered by the reference single-muon path. finally the product of these two eff is what we need.
+
+other efficiency refer to muon POG and EGamma POG.
+
+step6:
+
