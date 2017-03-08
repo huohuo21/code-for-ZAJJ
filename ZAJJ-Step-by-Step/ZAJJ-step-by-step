@@ -20,5 +20,6 @@ calculate trigger efficiency. reference method are used. firstly get the single 
 other efficiency refer to muon POG and EGamma POG.
 
 step6:
+use pre-selection to get small trees for later significance calculation
 
 
