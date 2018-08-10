@@ -12,8 +12,9 @@ xs_zg = 47.46
 
 geninfo,geninfoLabel = Handle("GenEventInfoProduct"), "generator"
 handlePruned  = Handle ("std::vector<reco::GenParticle>")
-labelPruned = ("genParticles")
-#labelPruned = ("prunedGenParticles")
+#labelPruned = ("genParticles")
+labelPruned = ("prunedGenParticles")
+count= 0
 
 for event in events_DYjets:
 
@@ -29,13 +30,8 @@ for event in events_DYjets:
     event.getByLabel(geninfoLabel,geninfo)
     gen = geninfo.product()
 
-    if gen.weight() > 0:
-        countweighted += 1
-    else:
-        countweighted -= 1
-
     for p in pruned :
         if abs(p.pdgId()) == 22 and p.pt() > 25 and abs(p.eta()) < 2.5 and (p.statusFlags().isPrompt()) and p.status() == 1   :
-	print p.mother()
+		print p.mother().pdgId()
 
 
