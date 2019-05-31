@@ -1,0 +1,3 @@
+combine -M FitDiagnostics all.txt --saveShape --saveWithUncertainties
+
+it will give back fitDiagnostics.root containing directory "shapes_prefit", 'shapes_fit_b', 'shapes_fit_s', with the shape and uncertainties of each process in each channel
